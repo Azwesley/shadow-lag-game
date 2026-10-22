@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#161b25">
+  <meta name="description" content="你先走，影子晚0.7秒。一个手指，同时照顾两个你。来挑战影子慢半拍。">
+  <meta property="og:title" content="影子慢半拍 · 一个人，两份手忙脚乱">
+  <meta property="og:description" content="你先走，影子晚0.7秒。点一下换边，看看你能撑多久。">
+  <meta property="og:type" content="website">
+  <title>影子慢半拍 · 你先走，影子晚 0.7 秒</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css?v=1">
+  <script defer src="game.js?v=1"></script>
+  <script defer src="app.js?v=1"></script>
+</head>
+<body data-state="idle">
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="影子慢半拍首页"><span class="brand-mark" aria-hidden="true"><i></i><i></i></span><span>影子慢半拍<span class="brand-en">SHADOW LAG</span></span></a>
+      <div class="edition"><span></span> 一个人，两份手忙脚乱</div>
+    </header>
+    <main class="layout">
+      <aside class="story">
+        <span class="eyebrow">A TINY GAME ABOUT YOUR OTHER SELF</span>
+        <h1>脑子会了。<br><span>影子还没。</span></h1>
+        <p class="lead">你先走，影子晚 <strong>0.7 秒。</strong><br>一个手指，照顾两个自己。</p>
+        <div class="delay-art" aria-hidden="true"><span class="art-track"></span><span class="art-person"></span><span class="delay-line"></span><span class="art-shadow"></span><span class="delay-label">0.7s LATER</span><span class="art-spark">✳</span></div>
+        <div class="story-notes">
+          <div><span class="note-number">01</span><p>点一下，两个你都会换边。<br><small>只是，有一个总慢半拍。</small></p></div>
+          <div><span class="note-number">02</span><p>让两边都躲开粉色路障。<br><small>别只顾眼前，也顾一下影子。</small></p></div>
+          <div><span class="note-number">03</span><p>把同一条跑道甩给朋友。<br><small>看看谁的脑子能同时值两个班。</small></p></div>
+        </div>
+        <p class="story-foot">无需下载 · 单局约 35 秒 · 手机 / 电脑</p>
+      </aside>
+
+      <section class="play-column" aria-label="游戏区域">
+        <div id="challenge-banner" class="challenge-banner" hidden></div>
+        <div class="game-hud">
+          <div class="hud-score"><span class="hud-label">默契值</span><strong id="score">0</strong></div>
+          <div class="hud-center"><span class="hud-label">同步进度</span><span id="progress">0%</span></div>
+          <div class="hud-lives"><span class="hud-label">心跳余额</span><span id="lives" aria-label="剩余生命">♥ ♥ ♥</span></div>
+        </div>
+        <div class="game-frame">
+          <canvas id="game-canvas" width="400" height="560" aria-label="影子慢半拍游戏跑道：点击屏幕或按空格换边"></canvas>
+          <div id="intro" class="screen intro-screen">
+            <div class="intro-badge"><span class="badge-dot"></span> 半拍之差，天差地别</div>
+            <div class="intro-symbol" aria-hidden="true"><span></span><span></span><em>0.7s</em></div>
+            <h2>影子慢半拍</h2>
+            <p class="intro-subtitle">你先走，影子晚 0.7 秒。</p>
+            <div class="how-to"><p><span>↔</span> 点一下 / 按空格：<strong>换边</strong></p><p><span>◷</span> 影子晚 <strong>0.7 秒</strong>换边</p><p><span class="pink">▰</span> 两边都躲开粉色路障 · <strong>3 颗心</strong></p></div>
+            <button id="start-btn" class="button primary" type="button">试试我的默契 <span>↗</span></button>
+            <p class="intro-small">左边是你，右边是晚 0.7 秒的影子</p>
+          </div>
+          <section id="result" class="screen result-screen" aria-live="polite" hidden>
+            <span class="result-kicker">YOUR SHADOW REPORT</span>
+            <div class="result-score-wrap"><strong id="result-score">0</strong><span>默契值</span></div>
+            <h2 id="result-title">影子还在加载中</h2>
+            <p id="result-detail">再来一次，你们会更默契。</p>
+            <div class="result-rule"></div>
+            <label class="share-label" for="challenge-url">同一条跑道，看谁更默契</label>
+            <div class="url-row"><input id="challenge-url" type="text" readonly aria-label="朋友挑战链接"><button id="copy-btn" type="button" aria-label="复制挑战链接">复制</button></div>
+            <button id="share-btn" class="button primary" type="button">把这半拍甩给朋友 <span>↗</span></button>
+            <div class="result-actions"><button id="retry-btn" class="button secondary" type="button">不服，再来</button><button id="new-btn" class="button secondary" type="button">换条跑道</button></div>
+            <p class="result-small">无需下载，朋友打开链接就能挑战</p>
+          </section>
+        </div>
+        <div class="play-toolbar">
+          <button id="pause-btn" class="icon-button" type="button" aria-label="暂停游戏" title="暂停 / 继续">Ⅱ</button>
+          <button id="move-btn" class="move-button" type="button"><span>↔</span> 点一下，换边 <kbd>SPACE</kbd></button>
+          <p class="toolbar-idle">同一条跑道，才是真正的较量。</p>
+          <button id="sound-btn" class="icon-button" type="button" aria-label="切换声音" title="声音开关">♪</button>
+        </div>
+        <details class="help"><summary id="help-toggle">玩法小提示 <span>＋</span></summary><p>点击跑道、下方按钮，或按空格换边。左边是你，右边是晚 0.7 秒行动的影子。两边都要躲开粉色路障，连着乱点会让影子更忙。把结算链接发给朋友，挑战的是同一条跑道。</p></details>
+      </section>
+    </main>
+    <footer class="page-footer"><span>ME & MY LATE SHADOW.</span><span>慢半拍，也别掉队。</span></footer>
+  </div>
+  <div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
